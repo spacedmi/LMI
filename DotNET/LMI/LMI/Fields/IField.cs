@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace LMI
 {
-    interface IField
+    public interface IField
     {
-        void Draw();
+        void Draw(Graphics graphics);
     }
 }
