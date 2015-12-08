@@ -50,6 +50,7 @@
     <Compile Include="Fields\D3Field.cs" />
     <Compile Include="Fields\D4Field.cs" />
     <Compile Include="Fields\D5Field.cs" />
+    <Compile Include="Fields\Field.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>

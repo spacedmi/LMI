@@ -25,6 +25,7 @@ namespace LMI
         public int currentPictureBoxLocationY = 0;
         public double currentLocationX = 0;
         public double currentLocationY = 0;
+        public Fields.Field currentFieldName = Fields.Field.D1Field;
 
         public void Draw()
         {
