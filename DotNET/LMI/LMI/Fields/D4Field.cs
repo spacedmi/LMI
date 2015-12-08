@@ -9,7 +9,16 @@ namespace LMI
 {
     class D4Field : IField
     {
-        public double Angle { get; set; }
+        private int pictureBoxWidth;
+        private int pictureBoxHeight;
+        private double Angle { get; set; }
+
+        public D4Field(int pictureBoxWidth, int pictureBoxHeight)
+        {
+            this.pictureBoxWidth = pictureBoxWidth;
+            this.pictureBoxHeight = pictureBoxHeight;
+            Angle = 30.0;
+        }
 
         public void Draw(Graphics graphics)
         {

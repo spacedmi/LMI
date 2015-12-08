@@ -9,8 +9,18 @@ namespace LMI
 {
     class D2Field : IField
     {
-        public double Q { get; set; }
-        public double R { get; set; }
+        private int pictureBoxWidth;
+        private int pictureBoxHeight;
+        private double Q { get; set; }
+        private double R { get; set; }
+
+        public D2Field(int pictureBoxWidth, int pictureBoxHeight)
+        {
+            this.pictureBoxWidth = pictureBoxWidth;
+            this.pictureBoxHeight = pictureBoxHeight;
+            Q = 1.0;
+            R = 5.0;
+        }
 
         public void Draw(Graphics graphics)
         {

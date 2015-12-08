@@ -38,26 +38,28 @@ namespace LMI
             switch (currentFieldName)
             {
                 case Field.D5Field:
-                    fieldObjects.Add(new D5Field());
+                    fieldObjects.Add(new D5Field(pictureBoxWidth, pictureBoxHeight));
                     break;
                 case Field.D4Field:
-                    fieldObjects.Add(new D4Field());
+                    fieldObjects.Add(new D4Field(pictureBoxWidth, pictureBoxHeight));
                     break;
                 case Field.D3Field:
-                    fieldObjects.Add(new D3Field());
+                    fieldObjects.Add(new D3Field(pictureBoxWidth, pictureBoxHeight));
                     break;
                 case Field.D2Field:
-                    fieldObjects.Add(new D2Field());
+                    fieldObjects.Add(new D2Field(pictureBoxWidth, pictureBoxHeight));
                     break;
                 case Field.D1Field:
                 default:
-                    fieldObjects.Add(new D1Field());
+                    fieldObjects.Add(new D1Field(pictureBoxWidth, pictureBoxHeight));
                     break;
             }
         }
 
         public void Draw()
         {
+            graphics.Clear(Color.White);
+
             // Draw axes
             Pen pen = new Pen(Color.FromArgb(255, 0, 0, 0));
             graphics.DrawLine(pen, 0, pictureBoxHeight / 2, pictureBoxWidth, pictureBoxHeight / 2);
