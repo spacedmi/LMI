@@ -13,20 +13,28 @@ namespace LMI
     public partial class MainForm : Form
     {
         private GraphicsController graphicsController;
+        private bool isMouseDown = false;
 
         public MainForm()
         {
             InitializeComponent();
             graphicsController = new GraphicsController(pictureBox1.CreateGraphics(), pictureBox1.Width, pictureBox1.Height);
+            fieldComboBox.SelectedIndex = 0;
         }
 
         private void pictureBox1_MouseMove(object sender, MouseEventArgs e)
         {
-            graphicsController.Draw();
             graphicsController.currentPictureBoxLocationX = e.X;
             graphicsController.currentPictureBoxLocationY = e.Y;
             graphicsController.currentLocationX = (double)(e.X - pictureBox1.Width / 2) / 10.0;
             graphicsController.currentLocationY = (double)(pictureBox1.Height - e.Y - pictureBox1.Height / 2) / 10.0;
+
+            if (isMouseDown)
+            {
+                graphicsController.ProcessMousePosition();
+            }
+
+            graphicsController.Draw();
 
             LocationLabel.Text = 
                 "Current location: (" + 
@@ -34,6 +42,44 @@ namespace LMI
                 "," +
                 graphicsController.currentLocationY.ToString() + 
                 ")";
+        }
+
+        private void fieldComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            switch (fieldComboBox.SelectedIndex)
+            {
+                case 4:
+                    graphicsController.currentFieldName = Field.D5Field;
+                    break;
+                case 3:
+                    graphicsController.currentFieldName = Field.D4Field;
+                    break;
+                case 2:
+                    graphicsController.currentFieldName = Field.D3Field;
+                    break;
+                case 1:
+                    graphicsController.currentFieldName = Field.D2Field;
+                    break;
+                case 0:
+                default:
+                    graphicsController.currentFieldName = Field.D1Field;
+                    break;
+            }
+        }
+
+        private void pictureBox1_MouseDown(object sender, MouseEventArgs e)
+        {
+            isMouseDown = true;
+        }
+
+        private void MainForm_MouseUp(object sender, MouseEventArgs e)
+        {
+            isMouseDown = false;
+        }
+
+        private void AddNewFieldButton_Click(object sender, EventArgs e)
+        {
+            graphicsController.AddNewField();
         }
     }
 }
