@@ -17,12 +17,19 @@ namespace LMI
         {
             this.pictureBoxWidth = pictureBoxWidth;
             this.pictureBoxHeight = pictureBoxHeight;
-            Nu = 5.0;
+            Nu = 7.0;
         }
 
         public void Draw(Graphics graphics)
         {
-            // TODO: D3 Draw
+            int x = 0;
+            int y = pictureBoxHeight / 2 - Convert.ToInt32(Nu) * 10;
+            int width = pictureBoxWidth / 2;
+            int height = 2 * Convert.ToInt32(Nu) * 10;
+
+            SolidBrush brush = new SolidBrush(Color.FromArgb(127, 0, 0, 255));
+            Rectangle rect = new Rectangle(x, y, width, height);
+            graphics.FillRectangle(brush, rect);
         }
     }
 }

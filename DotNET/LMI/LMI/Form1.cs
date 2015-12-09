@@ -32,9 +32,8 @@ namespace LMI
             if (isMouseDown)
             {
                 graphicsController.ProcessMousePosition();
+                graphicsController.Draw();
             }
-
-            graphicsController.Draw();
 
             LocationLabel.Text = 
                 "Current location: (" + 
@@ -72,6 +71,11 @@ namespace LMI
             isMouseDown = true;
         }
 
+        private void pictureBox1_MouseUp(object sender, MouseEventArgs e)
+        {
+            isMouseDown = false;
+        }
+
         private void MainForm_MouseUp(object sender, MouseEventArgs e)
         {
             isMouseDown = false;
@@ -80,6 +84,7 @@ namespace LMI
         private void AddNewFieldButton_Click(object sender, EventArgs e)
         {
             graphicsController.AddNewField();
+            graphicsController.Draw();
         }
     }
 }

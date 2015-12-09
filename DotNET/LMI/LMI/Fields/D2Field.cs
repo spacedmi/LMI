@@ -18,13 +18,18 @@ namespace LMI
         {
             this.pictureBoxWidth = pictureBoxWidth;
             this.pictureBoxHeight = pictureBoxHeight;
-            Q = 1.0;
+            Q = 10.0;
             R = 5.0;
         }
 
         public void Draw(Graphics graphics)
         {
-            // TODO: D2 Draw
+            int x0 = pictureBoxWidth / 2 - Convert.ToInt32(Q) * 10 - Convert.ToInt32(R) * 10;
+            int y0 = pictureBoxHeight / 2 - Convert.ToInt32(R) * 10;
+            int d = 2 * Convert.ToInt32(R) * 10;
+
+            SolidBrush brush = new SolidBrush(Color.FromArgb(127, 0, 255, 0));
+            graphics.FillEllipse(brush, new Rectangle(x0, y0, d, d));
         }
     }
 }

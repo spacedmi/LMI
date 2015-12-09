@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,12 +18,38 @@ namespace LMI
         {
             this.pictureBoxWidth = pictureBoxWidth;
             this.pictureBoxHeight = pictureBoxHeight;
-            Angle = 30.0;
+            Angle = 130.0;
         }
 
         public void Draw(Graphics graphics)
         {
-            // TODO: D4 Draw
+            SolidBrush brush = new SolidBrush(Color.FromArgb(127, 255, 255, 0));
+            FillMode fillMode = FillMode.Winding;
+            PointF point1 = new PointF(pictureBoxWidth / 2, pictureBoxHeight / 2);
+            if (Angle > 90.0)
+            {
+                PointF point2 = new PointF(0.0F, 0.0F);
+                PointF point3 = new PointF(0.0F, pictureBoxHeight);
+                PointF point4 = new PointF(0.5F * pictureBoxHeight *
+                    (1 - (float)Math.Sqrt(2.0F) * (float)Math.Cos(Math.PI * (Angle / 180.0F) / 2.0F)), 0.0F);
+                PointF point5 = new PointF(0.5F * pictureBoxHeight *
+                    (1 - (float)Math.Sqrt(2.0F) * (float)Math.Cos(Math.PI * (Angle / 180.0F) / 2.0F)), pictureBoxHeight);
+                PointF point6 = new PointF(0.0F, 0.0F);
+                PointF point7 = new PointF(0.0F, pictureBoxHeight);
+                graphics.FillPolygon(brush, new PointF[9] { point1, point2, point4, point1, point3, point5, point1, point6, point7 }, fillMode);
+            }
+            else
+            {
+                var t = Math.PI * (Angle / 180.0F);
+                var g = (float)Math.Sin(Math.PI / 4.0F);
+                var y = (float)Math.Sin(Math.PI * (Angle / 180.0F) / 2.0F);
+                PointF point2 = new PointF(0.0F, 0.5F * (float)pictureBoxHeight * 
+                    (1.0F - (float)Math.Sqrt(2.0F) * (float)Math.Sin(Math.PI * (Angle / 180.0F) / 2.0F)));
+                PointF point3 = new PointF(0.0F, 0.5F * (float)pictureBoxHeight *
+                    (1.0F + (float)Math.Sqrt(2.0F) * (float)Math.Sin(Math.PI * (Angle / 180.0F) / 2.0F)));
+                PointF[] curvePoints = { point1, point2, point3 };
+                graphics.FillPolygon(brush, new PointF[] { point1, point2, point3 }, fillMode);
+            }
         }
     }
 }
