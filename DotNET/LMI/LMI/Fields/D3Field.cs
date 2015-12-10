@@ -11,13 +11,15 @@ namespace LMI
     {
         private int pictureBoxWidth;
         private int pictureBoxHeight;
-        private double Nu { get; set; }
+        private int pointWidth = 5;
+        private int pointHeight = 5;
+        private float Nu { get; set; }
 
         public D3Field(int pictureBoxWidth, int pictureBoxHeight)
         {
             this.pictureBoxWidth = pictureBoxWidth;
             this.pictureBoxHeight = pictureBoxHeight;
-            Nu = 7.0;
+            Nu = 7.0f;
         }
 
         public void Draw(Graphics graphics)
@@ -30,6 +32,16 @@ namespace LMI
             SolidBrush brush = new SolidBrush(Color.FromArgb(127, 0, 0, 255));
             Rectangle rect = new Rectangle(x, y, width, height);
             graphics.FillRectangle(brush, rect);
+        }
+
+        public bool isFixPoint(float currentLocationX, float currentLocationY)
+        {
+            return false;
+        }
+
+        public void ProcessMousePosition(float currentLocationX, float currentLocationY)
+        {
+
         }
     }
 }

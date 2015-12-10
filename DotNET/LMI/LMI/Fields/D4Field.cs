@@ -12,13 +12,15 @@ namespace LMI
     {
         private int pictureBoxWidth;
         private int pictureBoxHeight;
-        private double Angle { get; set; }
+        private int pointWidth = 5;
+        private int pointHeight = 5;
+        private float Angle { get; set; }
 
         public D4Field(int pictureBoxWidth, int pictureBoxHeight)
         {
             this.pictureBoxWidth = pictureBoxWidth;
             this.pictureBoxHeight = pictureBoxHeight;
-            Angle = 130.0;
+            Angle = 130.0f;
         }
 
         public void Draw(Graphics graphics)
@@ -50,6 +52,16 @@ namespace LMI
                 PointF[] curvePoints = { point1, point2, point3 };
                 graphics.FillPolygon(brush, new PointF[] { point1, point2, point3 }, fillMode);
             }
+        }
+
+        public bool isFixPoint(float currentLocationX, float currentLocationY)
+        {
+            return false;
+        }
+
+        public void ProcessMousePosition(float currentLocationX, float currentLocationY)
+        {
+
         }
     }
 }

@@ -26,8 +26,8 @@ namespace LMI
         {
             graphicsController.currentPictureBoxLocationX = e.X;
             graphicsController.currentPictureBoxLocationY = e.Y;
-            graphicsController.currentLocationX = (double)(e.X - pictureBox1.Width / 2) / 10.0;
-            graphicsController.currentLocationY = (double)(pictureBox1.Height - e.Y - pictureBox1.Height / 2) / 10.0;
+            graphicsController.currentLocationX = (float)(e.X - pictureBox1.Width / 2) / 10.0f;
+            graphicsController.currentLocationY = (float)(pictureBox1.Height - e.Y - pictureBox1.Height / 2) / 10.0f;
 
             if (isMouseDown)
             {
@@ -74,11 +74,13 @@ namespace LMI
         private void pictureBox1_MouseUp(object sender, MouseEventArgs e)
         {
             isMouseDown = false;
+            graphicsController.StopProcessMousePosition();
         }
 
         private void MainForm_MouseUp(object sender, MouseEventArgs e)
         {
             isMouseDown = false;
+            graphicsController.StopProcessMousePosition();
         }
 
         private void AddNewFieldButton_Click(object sender, EventArgs e)
