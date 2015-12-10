@@ -1,2 +1,2 @@
 # LMI
-LMI Project
+LMI .Net + Python Project
