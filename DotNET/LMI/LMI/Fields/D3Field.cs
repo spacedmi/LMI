@@ -11,25 +11,64 @@ namespace LMI
     {
         private int pictureBoxWidth;
         private int pictureBoxHeight;
-        private double Nu { get; set; }
+        private int pointWidth = 6;
+        private int pointHeight = 6;
+        private PointF fixPoint { get; set; }
+        private float nu;
+        private float Nu
+        {
+            get { return nu; }
+            set
+            {
+                if (value > 0)
+                    nu = value;
+                else
+                    nu = 0.01f;
+                fixPoint = new PointF(-(float)pictureBoxWidth / 40.0f, nu);
+            }
+        }
 
         public D3Field(int pictureBoxWidth, int pictureBoxHeight)
         {
             this.pictureBoxWidth = pictureBoxWidth;
             this.pictureBoxHeight = pictureBoxHeight;
-            Nu = 7.0;
+            Nu = 7.0f;
         }
 
         public void Draw(Graphics graphics)
         {
             int x = 0;
-            int y = pictureBoxHeight / 2 - Convert.ToInt32(Nu) * 10;
+            int y = pictureBoxHeight / 2 - Convert.ToInt32(Nu * 10);
             int width = pictureBoxWidth / 2;
-            int height = 2 * Convert.ToInt32(Nu) * 10;
+            int height = 2 * Convert.ToInt32(Nu * 10);
 
+            // Draw field
             SolidBrush brush = new SolidBrush(Color.FromArgb(127, 0, 0, 255));
             Rectangle rect = new Rectangle(x, y, width, height);
             graphics.FillRectangle(brush, rect);
+
+            // Draw fixPoint
+            SolidBrush fBrush = new SolidBrush(Color.FromArgb(200, 0, 0, 0));
+            Rectangle fRect = new Rectangle(
+                pictureBoxWidth / 2 + Convert.ToInt32(fixPoint.X * 10) - pointWidth / 2,
+                pictureBoxHeight / 2 - Convert.ToInt32(fixPoint.Y * 10) - pointHeight / 2,
+                pointWidth,
+                pointHeight);
+            graphics.FillRectangle(fBrush, fRect);
+        }
+
+        public bool isFixPoint(float currentLocationX, float currentLocationY)
+        {
+            if ((Math.Abs(fixPoint.X - currentLocationX) <= (float)pointWidth / 20.0f) &&
+                (Math.Abs(fixPoint.Y - currentLocationY) <= (float)pointHeight / 20.0f))
+                return true;
+            else
+                return false;
+        }
+
+        public void ProcessMousePosition(float currentLocationX, float currentLocationY)
+        {
+            Nu = Math.Abs(currentLocationY);
         }
     }
 }

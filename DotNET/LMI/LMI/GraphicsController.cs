@@ -20,17 +20,40 @@ namespace LMI
         private Graphics graphics;
         private int pictureBoxWidth;
         private int pictureBoxHeight;
+        private IField currentFieldObject;
         private List<IField> fieldObjects = new List<IField>();
+        private bool isObjectForProcess = false;
 
         public int currentPictureBoxLocationX = 0;
         public int currentPictureBoxLocationY = 0;
-        public double currentLocationX = 0;
-        public double currentLocationY = 0;
+        public float currentLocationX = 0;
+        public float currentLocationY = 0;
         public Field currentFieldName = Field.D1Field;
 
         public void ProcessMousePosition()
         {
-            
+            foreach (IField fieldObject in fieldObjects)
+            {
+                if (fieldObject.isFixPoint(currentLocationX, currentLocationY))
+                {
+                    isObjectForProcess = true;
+                    currentFieldObject = fieldObject;
+                }
+            }
+
+            if (isObjectForProcess)
+            {
+                if (currentFieldObject != null)
+                {
+                    currentFieldObject.ProcessMousePosition(currentLocationX, currentLocationY);
+                }
+            }
+        }
+
+        public void StopProcessMousePosition()
+        {
+            isObjectForProcess = false;
+            currentFieldObject = null;
         }
 
         public void AddNewField()
