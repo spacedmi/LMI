@@ -11,8 +11,8 @@ namespace LMI
     {
         private int pictureBoxWidth;
         private int pictureBoxHeight;
-        private int pointWidth = 5;
-        private int pointHeight = 5;
+        private int pointWidth = 6;
+        private int pointHeight = 6;
         private PointF fixPointQ { get; set; }
         private PointF fixPointR { get; set; }
         private int currentFixPoint = 0;
@@ -100,10 +100,8 @@ namespace LMI
 
         public void ProcessMousePosition(float currentLocationX, float currentLocationY)
         {
-            if (currentFixPoint == 0) // fixPointQ
-            {
+            if (currentFixPoint == 0)
                 Q = -currentLocationX;
-            }
             else
                 R = Math.Abs(currentLocationY);
         }

@@ -11,8 +11,8 @@ namespace LMI
     {
         private int pictureBoxWidth;
         private int pictureBoxHeight;
-        private int pointWidth = 5;
-        private int pointHeight = 5;
+        private int pointWidth = 6;
+        private int pointHeight = 6;
         private PointF fixPoint { get; set; }
         private float mu;
         private float Mu
@@ -51,7 +51,7 @@ namespace LMI
             SolidBrush fBrush = new SolidBrush(Color.FromArgb(200, 0, 0, 0));
             Rectangle fRect = new Rectangle(
                 pictureBoxWidth / 2 + Convert.ToInt32(fixPoint.X * 10) - pointWidth / 2,
-                pictureBoxHeight / 2 + Convert.ToInt32(fixPoint.Y * 10) - pointHeight / 2,
+                pictureBoxHeight / 2 - Convert.ToInt32(fixPoint.Y * 10) - pointHeight / 2,
                 pointWidth,
                 pointHeight);
             graphics.FillRectangle(fBrush, fRect);
@@ -64,7 +64,6 @@ namespace LMI
                 return true;
             else
                 return false;
-
         }
 
         public void ProcessMousePosition(float currentLocationX, float currentLocationY)

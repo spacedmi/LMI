@@ -12,15 +12,37 @@ namespace LMI
     {
         private int pictureBoxWidth;
         private int pictureBoxHeight;
-        private int pointWidth = 5;
-        private int pointHeight = 5;
-        private float Angle { get; set; }
+        private int pointWidth = 6;
+        private int pointHeight = 6;
+        private PointF fixPoint { get; set; }
+        private float angle;
+        private float Angle
+        {
+            get { return angle; }
+            set
+            {
+                if (value > 0.0f)
+                    if (value < 180.0f)
+                        angle = value;
+                    else
+                        angle = 179.99f;
+                else
+                    angle = 0.01f;
+
+                if (angle > 90.0f)
+                    fixPoint = new PointF(-(float)pictureBoxHeight / 20.0f *
+                    (float)Math.Sqrt(2.0F) * (float)Math.Cos(Math.PI * (Angle / 180.0F) / 2.0F), (float)pictureBoxHeight / 20.0f);
+                else
+                    fixPoint = new PointF(-(float)pictureBoxHeight / 20.0f, (float)pictureBoxHeight / 20.0f *
+                   (float)Math.Sqrt(2.0F) * (float)Math.Sin(Math.PI * (Angle / 180.0F) / 2.0F));
+            }
+        }
 
         public D4Field(int pictureBoxWidth, int pictureBoxHeight)
         {
             this.pictureBoxWidth = pictureBoxWidth;
             this.pictureBoxHeight = pictureBoxHeight;
-            Angle = 130.0f;
+            Angle = 100.0f;
         }
 
         public void Draw(Graphics graphics)
@@ -52,16 +74,32 @@ namespace LMI
                 PointF[] curvePoints = { point1, point2, point3 };
                 graphics.FillPolygon(brush, new PointF[] { point1, point2, point3 }, fillMode);
             }
+
+            // Draw fixPoint
+            SolidBrush fBrush = new SolidBrush(Color.FromArgb(200, 0, 0, 0));
+            Rectangle fRect = new Rectangle(
+                pictureBoxWidth / 2 + Convert.ToInt32(fixPoint.X * 10) - pointWidth / 2,
+                pictureBoxHeight / 2 - Convert.ToInt32(fixPoint.Y * 10) - pointHeight / 2,
+                pointWidth,
+                pointHeight);
+            graphics.FillRectangle(fBrush, fRect);
         }
 
         public bool isFixPoint(float currentLocationX, float currentLocationY)
         {
-            return false;
+            if ((Math.Abs(fixPoint.X - currentLocationX) <= (float)pointWidth / 20.0f) &&
+                (Math.Abs(fixPoint.Y - currentLocationY) <= (float)pointHeight / 20.0f))
+                return true;
+            else
+                return false;
         }
 
         public void ProcessMousePosition(float currentLocationX, float currentLocationY)
         {
-
+            if (currentLocationX >= 0)
+                Angle = 180.0f;
+            else
+                Angle = 2.0f * 180.0f / (float)Math.PI * (float)Math.Atan(-currentLocationY / currentLocationX);
         }
     }
 }
