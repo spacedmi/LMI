@@ -45,6 +45,13 @@ namespace LMI
             Angle = 100.0f;
         }
 
+        public D4Field(int pictureBoxWidth, int pictureBoxHeight, int angle)
+        {
+            this.pictureBoxWidth = pictureBoxWidth;
+            this.pictureBoxHeight = pictureBoxHeight;
+            Angle = angle;
+        }
+
         public void Draw(Graphics graphics)
         {
             SolidBrush brush = new SolidBrush(Color.FromArgb(127, 255, 255, 0));

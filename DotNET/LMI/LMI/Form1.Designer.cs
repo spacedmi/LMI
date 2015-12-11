@@ -33,6 +33,8 @@
             this.fieldComboBox = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.AddNewFieldButton = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
+            this.angleTextBox = new System.Windows.Forms.MaskedTextBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -91,11 +93,31 @@
             this.AddNewFieldButton.UseVisualStyleBackColor = true;
             this.AddNewFieldButton.Click += new System.EventHandler(this.AddNewFieldButton_Click);
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(433, 84);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(37, 13);
+            this.label2.TabIndex = 5;
+            this.label2.Text = "Angle:";
+            // 
+            // angleTextBox
+            // 
+            this.angleTextBox.Location = new System.Drawing.Point(476, 81);
+            this.angleTextBox.Mask = "000";
+            this.angleTextBox.Name = "angleTextBox";
+            this.angleTextBox.Size = new System.Drawing.Size(44, 20);
+            this.angleTextBox.TabIndex = 6;
+            this.angleTextBox.Text = "100";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(584, 421);
+            this.Controls.Add(this.angleTextBox);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.AddNewFieldButton);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.fieldComboBox);
@@ -119,6 +141,8 @@
         private System.Windows.Forms.ComboBox fieldComboBox;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button AddNewFieldButton;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.MaskedTextBox angleTextBox;
     }
 }
 

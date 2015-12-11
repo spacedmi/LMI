@@ -56,7 +56,7 @@ namespace LMI
             currentFieldObject = null;
         }
 
-        public void AddNewField()
+        public void AddNewField(int angle = 100)
         {
             switch (currentFieldName)
             {
@@ -64,7 +64,7 @@ namespace LMI
                     fieldObjects.Add(new D5Field(pictureBoxWidth, pictureBoxHeight));
                     break;
                 case Field.D4Field:
-                    fieldObjects.Add(new D4Field(pictureBoxWidth, pictureBoxHeight));
+                    fieldObjects.Add(new D4Field(pictureBoxWidth, pictureBoxHeight, angle));
                     break;
                 case Field.D3Field:
                     fieldObjects.Add(new D3Field(pictureBoxWidth, pictureBoxHeight));
