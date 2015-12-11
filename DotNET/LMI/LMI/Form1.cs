@@ -20,6 +20,8 @@ namespace LMI
             InitializeComponent();
             graphicsController = new GraphicsController(pictureBox1.CreateGraphics(), pictureBox1.Width, pictureBox1.Height);
             fieldComboBox.SelectedIndex = 0;
+            label2.Enabled = false;
+            angleTextBox.Enabled = false;
         }
 
         private void pictureBox1_MouseMove(object sender, MouseEventArgs e)
@@ -49,19 +51,29 @@ namespace LMI
             {
                 case 4:
                     graphicsController.currentFieldName = Field.D5Field;
+                    label2.Enabled = false;
+                    angleTextBox.Enabled = false;
                     break;
                 case 3:
                     graphicsController.currentFieldName = Field.D4Field;
+                    label2.Enabled = true;
+                    angleTextBox.Enabled = true;
                     break;
                 case 2:
                     graphicsController.currentFieldName = Field.D3Field;
+                    label2.Enabled = false;
+                    angleTextBox.Enabled = false;
                     break;
                 case 1:
                     graphicsController.currentFieldName = Field.D2Field;
+                    label2.Enabled = false;
+                    angleTextBox.Enabled = false;
                     break;
                 case 0:
                 default:
                     graphicsController.currentFieldName = Field.D1Field;
+                    label2.Enabled = false;
+                    angleTextBox.Enabled = false;
                     break;
             }
         }
@@ -85,7 +97,10 @@ namespace LMI
 
         private void AddNewFieldButton_Click(object sender, EventArgs e)
         {
-            graphicsController.AddNewField();
+            if (fieldComboBox.SelectedIndex == 3)
+                graphicsController.AddNewField(Convert.ToInt32(angleTextBox.Text));
+            else
+                graphicsController.AddNewField();
             graphicsController.Draw();
         }
     }
