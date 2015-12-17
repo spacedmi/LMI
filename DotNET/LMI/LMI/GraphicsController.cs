@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Drawing;
+using Newtonsoft.Json;
 
 namespace LMI
 {
@@ -29,6 +30,11 @@ namespace LMI
         public float currentLocationX = 0;
         public float currentLocationY = 0;
         public Field currentFieldName = Field.D1Field;
+
+        public void importData()
+        {
+            string json = JsonConvert.SerializeObject(fieldObjects);
+        }
 
         public void ProcessMousePosition()
         {

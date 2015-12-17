@@ -10,13 +10,8 @@ namespace LMI
 {
     class D4Field : IField
     {
-        private int pictureBoxWidth;
-        private int pictureBoxHeight;
-        private int pointWidth = 6;
-        private int pointHeight = 6;
-        private PointF fixPoint { get; set; }
-        private float angle;
-        private float Angle
+        public Field Name = Field.D4Field;
+        public float Angle
         {
             get { return angle; }
             set
@@ -38,6 +33,13 @@ namespace LMI
             }
         }
 
+        private int pictureBoxWidth;
+        private int pictureBoxHeight;
+        private int pointWidth = 6;
+        private int pointHeight = 6;
+        private PointF fixPoint { get; set; }
+        private float angle;
+
         public D4Field(int pictureBoxWidth, int pictureBoxHeight)
         {
             this.pictureBoxWidth = pictureBoxWidth;
@@ -52,7 +54,7 @@ namespace LMI
             Angle = angle;
         }
 
-        public void Draw(Graphics graphics)
+        public override void Draw(Graphics graphics)
         {
             SolidBrush brush = new SolidBrush(Color.FromArgb(127, 255, 255, 0));
             FillMode fillMode = FillMode.Winding;
@@ -92,7 +94,7 @@ namespace LMI
             graphics.FillRectangle(fBrush, fRect);
         }
 
-        public bool isFixPoint(float currentLocationX, float currentLocationY)
+        public override bool isFixPoint(float currentLocationX, float currentLocationY)
         {
             if ((Math.Abs(fixPoint.X - currentLocationX) <= (float)pointWidth / 20.0f) &&
                 (Math.Abs(fixPoint.Y - currentLocationY) <= (float)pointHeight / 20.0f))
@@ -101,7 +103,7 @@ namespace LMI
                 return false;
         }
 
-        public void ProcessMousePosition(float currentLocationX, float currentLocationY)
+        public override void ProcessMousePosition(float currentLocationX, float currentLocationY)
         {
             if (currentLocationX >= 0)
                 Angle = 180.0f;

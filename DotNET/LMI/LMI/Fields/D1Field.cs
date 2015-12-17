@@ -9,13 +9,8 @@ namespace LMI
 {
     class D1Field : IField
     {
-        private int pictureBoxWidth;
-        private int pictureBoxHeight;
-        private int pointWidth = 6;
-        private int pointHeight = 6;
-        private PointF fixPoint { get; set; }
-        private float mu;
-        private float Mu
+        public Field Name = Field.D1Field;
+        public float Mu
         {
             get { return mu; }
             set
@@ -28,6 +23,13 @@ namespace LMI
             }
         }
 
+        private int pictureBoxWidth;
+        private int pictureBoxHeight;
+        private int pointWidth = 6;
+        private int pointHeight = 6;
+        private PointF fixPoint { get; set; }
+        private float mu;
+
         public D1Field(int pictureBoxWidth, int pictureBoxHeight)
         {
             this.pictureBoxWidth = pictureBoxWidth;
@@ -35,7 +37,7 @@ namespace LMI
             Mu = 3.0f;
         }
 
-        public void Draw(Graphics graphics)
+        public override void Draw(Graphics graphics)
         {
             int x = 0;
             int y = 0;
@@ -57,7 +59,7 @@ namespace LMI
             graphics.FillRectangle(fBrush, fRect);
         }
 
-        public bool isFixPoint(float currentLocationX, float currentLocationY)
+        public override bool isFixPoint(float currentLocationX, float currentLocationY)
         {
             if ((Math.Abs(fixPoint.X - currentLocationX) <=  (float)pointWidth / 20.0f) &&
                 (Math.Abs(fixPoint.Y - currentLocationY) <= (float)pointHeight / 20.0f))
@@ -66,7 +68,7 @@ namespace LMI
                 return false;
         }
 
-        public void ProcessMousePosition(float currentLocationX, float currentLocationY)
+        public override void ProcessMousePosition(float currentLocationX, float currentLocationY)
         {
             Mu = -currentLocationX;
         }

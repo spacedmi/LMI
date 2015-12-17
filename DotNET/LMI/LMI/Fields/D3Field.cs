@@ -9,13 +9,8 @@ namespace LMI
 {
     class D3Field : IField
     {
-        private int pictureBoxWidth;
-        private int pictureBoxHeight;
-        private int pointWidth = 6;
-        private int pointHeight = 6;
-        private PointF fixPoint { get; set; }
-        private float nu;
-        private float Nu
+        public Field Name = Field.D3Field;
+        public float Nu
         {
             get { return nu; }
             set
@@ -28,6 +23,13 @@ namespace LMI
             }
         }
 
+        private int pictureBoxWidth;
+        private int pictureBoxHeight;
+        private int pointWidth = 6;
+        private int pointHeight = 6;
+        private PointF fixPoint { get; set; }
+        private float nu;
+
         public D3Field(int pictureBoxWidth, int pictureBoxHeight)
         {
             this.pictureBoxWidth = pictureBoxWidth;
@@ -35,7 +37,7 @@ namespace LMI
             Nu = 7.0f;
         }
 
-        public void Draw(Graphics graphics)
+        public override void Draw(Graphics graphics)
         {
             int x = 0;
             int y = pictureBoxHeight / 2 - Convert.ToInt32(Nu * 10);
@@ -57,7 +59,7 @@ namespace LMI
             graphics.FillRectangle(fBrush, fRect);
         }
 
-        public bool isFixPoint(float currentLocationX, float currentLocationY)
+        public override bool isFixPoint(float currentLocationX, float currentLocationY)
         {
             if ((Math.Abs(fixPoint.X - currentLocationX) <= (float)pointWidth / 20.0f) &&
                 (Math.Abs(fixPoint.Y - currentLocationY) <= (float)pointHeight / 20.0f))
@@ -66,7 +68,7 @@ namespace LMI
                 return false;
         }
 
-        public void ProcessMousePosition(float currentLocationX, float currentLocationY)
+        public override void ProcessMousePosition(float currentLocationX, float currentLocationY)
         {
             Nu = Math.Abs(currentLocationY);
         }
