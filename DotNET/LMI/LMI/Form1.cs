@@ -108,11 +108,12 @@ namespace LMI
 
         private void solveButton_Click(object sender, EventArgs e)
         {
-            graphicsController.importData();
+            string pythonPath = @"..\..\..\..\..\Python\";
+            graphicsController.importData(pythonPath);
 
             ProcessStartInfo start = new ProcessStartInfo();
             start.FileName = @"C:\Python27\python.exe";
-            start.Arguments = @"..\..\..\..\..\Python\LMI.py";
+            start.Arguments = pythonPath + "LMI.py";
             start.UseShellExecute = false;
             start.RedirectStandardOutput = true;
             using (Process process = Process.Start(start))
