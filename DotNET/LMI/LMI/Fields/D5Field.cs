@@ -9,15 +9,8 @@ namespace LMI
 {
     class D5Field : IField
     {
-        private int pictureBoxWidth;
-        private int pictureBoxHeight;
-        private int pointWidth = 6;
-        private int pointHeight = 6;
-        private PointF fixPointMu1 { get; set; }
-        private PointF fixPointMu2 { get; set; }
-        private int currentFixPoint = 0;
-        private float mu1, mu2;
-        private float Mu1
+        public Field Name = Field.D5Field;
+        public float Mu1
         {
             get { return mu1; }
             set
@@ -29,7 +22,7 @@ namespace LMI
                 fixPointMu1 = new PointF(-mu1, 0.0f);
             }
         }
-        private float Mu2
+        public float Mu2
         {
             get { return mu2; }
             set
@@ -42,6 +35,15 @@ namespace LMI
             }
         }
 
+        private int pictureBoxWidth;
+        private int pictureBoxHeight;
+        private int pointWidth = 6;
+        private int pointHeight = 6;
+        private PointF fixPointMu1 { get; set; }
+        private PointF fixPointMu2 { get; set; }
+        private int currentFixPoint = 0;
+        private float mu1, mu2;
+
         public D5Field(int pictureBoxWidth, int pictureBoxHeight)
         {
             this.pictureBoxWidth = pictureBoxWidth;
@@ -50,7 +52,7 @@ namespace LMI
             Mu2 = 7.0f;
         }
 
-        public void Draw(Graphics graphics)
+        public override void Draw(Graphics graphics)
         {
             int x = pictureBoxWidth / 2 - Convert.ToInt32(Math.Max(Mu1, Mu2) * 10);
             int y = 0;
@@ -81,7 +83,7 @@ namespace LMI
             graphics.FillRectangle(fBrushMu2, fRectMu2);
         }
 
-        public bool isFixPoint(float currentLocationX, float currentLocationY)
+        public override bool isFixPoint(float currentLocationX, float currentLocationY)
         {
             if ((Math.Abs(fixPointMu1.X - currentLocationX) <= (float)pointWidth / 20.0f) &&
                 (Math.Abs(fixPointMu1.Y - currentLocationY) <= (float)pointHeight / 20.0f))
@@ -99,7 +101,7 @@ namespace LMI
             return false;
         }
 
-        public void ProcessMousePosition(float currentLocationX, float currentLocationY)
+        public override void ProcessMousePosition(float currentLocationX, float currentLocationY)
         {
             if (currentFixPoint == 0)
                 Mu1 = -currentLocationX;

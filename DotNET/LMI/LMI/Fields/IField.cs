@@ -7,10 +7,11 @@ using System.Threading.Tasks;
 
 namespace LMI
 {
-    public interface IField
+    public abstract class IField
     {
-        void Draw(Graphics graphics);
-        bool isFixPoint(float currentLocationX, float currentLocationY);
-        void ProcessMousePosition(float currentLocationX, float currentLocationY);
+        public Field Name;
+        public abstract void Draw(Graphics graphics);
+        public abstract bool isFixPoint(float currentLocationX, float currentLocationY);
+        public abstract void ProcessMousePosition(float currentLocationX, float currentLocationY);
     }
 }

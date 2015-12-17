@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -102,6 +104,25 @@ namespace LMI
             else
                 graphicsController.AddNewField();
             graphicsController.Draw();
+        }
+
+        private void solveButton_Click(object sender, EventArgs e)
+        {
+            graphicsController.importData();
+
+            ProcessStartInfo start = new ProcessStartInfo();
+            start.FileName = @"C:\Python27\python.exe";
+            start.Arguments = @"..\..\..\..\..\Python\LMI.py";
+            start.UseShellExecute = false;
+            start.RedirectStandardOutput = true;
+            using (Process process = Process.Start(start))
+            {
+                using (StreamReader reader = process.StandardOutput)
+                {
+                    string result = reader.ReadToEnd();
+                    answerLabel.Text = "Answer: " + result;
+                }
+            }
         }
     }
 }

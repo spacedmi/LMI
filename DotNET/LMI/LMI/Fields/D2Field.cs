@@ -9,15 +9,8 @@ namespace LMI
 {
     class D2Field : IField
     {
-        private int pictureBoxWidth;
-        private int pictureBoxHeight;
-        private int pointWidth = 6;
-        private int pointHeight = 6;
-        private PointF fixPointQ { get; set; }
-        private PointF fixPointR { get; set; }
-        private int currentFixPoint = 0;
-        private float q, r;
-        private float Q 
+        public Field Name = Field.D2Field;
+        public float Q 
         {
             get { return q; }
             set
@@ -30,7 +23,7 @@ namespace LMI
                 fixPointR = new PointF(-q, r);
             }
         }
-        private float R 
+        public float R 
         {
             get { return r; }
             set
@@ -43,6 +36,15 @@ namespace LMI
             }
         }
 
+        private int pictureBoxWidth;
+        private int pictureBoxHeight;
+        private int pointWidth = 6;
+        private int pointHeight = 6;
+        private PointF fixPointQ { get; set; }
+        private PointF fixPointR { get; set; }
+        private int currentFixPoint = 0;
+        private float q, r;
+
         public D2Field(int pictureBoxWidth, int pictureBoxHeight)
         {
             this.pictureBoxWidth = pictureBoxWidth;
@@ -51,7 +53,7 @@ namespace LMI
             R = 5.0f;
         }
 
-        public void Draw(Graphics graphics)
+        public override void Draw(Graphics graphics)
         {
             int x0 = pictureBoxWidth / 2 - Convert.ToInt32(Q * 10) - Convert.ToInt32(R * 10);
             int y0 = pictureBoxHeight / 2 - Convert.ToInt32(R * 10);
@@ -80,7 +82,7 @@ namespace LMI
             graphics.FillRectangle(fBrushR, fRectR);
         }
 
-        public bool isFixPoint(float currentLocationX, float currentLocationY)
+        public override bool isFixPoint(float currentLocationX, float currentLocationY)
         {
             if ((Math.Abs(fixPointQ.X - currentLocationX) <= (float)pointWidth / 20.0f) &&
                 (Math.Abs(fixPointQ.Y - currentLocationY) <= (float)pointHeight / 20.0f))
@@ -98,7 +100,7 @@ namespace LMI
             return false;
         }
 
-        public void ProcessMousePosition(float currentLocationX, float currentLocationY)
+        public override void ProcessMousePosition(float currentLocationX, float currentLocationY)
         {
             if (currentFixPoint == 0)
                 Q = -currentLocationX;

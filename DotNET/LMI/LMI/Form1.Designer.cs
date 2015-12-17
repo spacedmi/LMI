@@ -35,6 +35,8 @@
             this.AddNewFieldButton = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.angleTextBox = new System.Windows.Forms.MaskedTextBox();
+            this.solveButton = new System.Windows.Forms.Button();
+            this.answerLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -111,11 +113,31 @@
             this.angleTextBox.TabIndex = 6;
             this.angleTextBox.Text = "100";
             // 
+            // solveButton
+            // 
+            this.solveButton.Location = new System.Drawing.Point(436, 117);
+            this.solveButton.Name = "solveButton";
+            this.solveButton.Size = new System.Drawing.Size(124, 23);
+            this.solveButton.TabIndex = 7;
+            this.solveButton.Text = "Solve";
+            this.solveButton.UseVisualStyleBackColor = true;
+            this.solveButton.Click += new System.EventHandler(this.solveButton_Click);
+            // 
+            // answerLabel
+            // 
+            this.answerLabel.AutoSize = true;
+            this.answerLabel.Location = new System.Drawing.Point(436, 147);
+            this.answerLabel.Name = "answerLabel";
+            this.answerLabel.Size = new System.Drawing.Size(0, 13);
+            this.answerLabel.TabIndex = 8;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(584, 421);
+            this.Controls.Add(this.answerLabel);
+            this.Controls.Add(this.solveButton);
             this.Controls.Add(this.angleTextBox);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.AddNewFieldButton);
@@ -143,6 +165,8 @@
         private System.Windows.Forms.Button AddNewFieldButton;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.MaskedTextBox angleTextBox;
+        private System.Windows.Forms.Button solveButton;
+        private System.Windows.Forms.Label answerLabel;
     }
 }
 
