@@ -32,15 +32,21 @@ namespace LMI
         public float currentLocationY = 0;
         public Field currentFieldName = Field.D1Field;
 
-        public async void importData(string path)
+        public void importData(string path)
         {
             path += "fields.json";
+            FileInfo fi = new FileInfo(path);
             string fieldsJson = JsonConvert.SerializeObject(fieldObjects);
 
-            using (StreamWriter outfile = new StreamWriter(path, true))
+            using (StreamWriter outfile = new StreamWriter(fi.Open(FileMode.Truncate)))
             {
-                await outfile.WriteAsync(fieldsJson);
+                outfile.Write(fieldsJson);
             }
+        }
+
+        public void clear()
+        {
+            fieldObjects.Clear();
         }
 
         public void ProcessMousePosition()
