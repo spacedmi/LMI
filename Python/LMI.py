@@ -5,6 +5,7 @@ from lmi_sdp import LMI_PD, LMI_ND
 from cvxopt import solvers
 from lmi_sdp import to_cvxopt
 import numpy as np
+from numpy.linalg import inv
 
 script_dir = os.path.dirname(__file__)
 rel_path = "fields.json"
@@ -35,58 +36,68 @@ def GetBlockMatrix(A, B, C, D, dim):
 
 N = 2
 A = sm.Matrix([[-1, 0], [0,  -2]])
+B = sm.Matrix([[1, 0], [0,  2]])
 
 s = 0
 for i in xrange(0, N + 1, 1):
     s = s + i
 
 x = [sm.symbols('x' + str(i)) for i in xrange(0, s, 1)]
+z = [sm.symbols('z' + str(i)) for i in xrange(0, s, 1)]
+
 Iks = sm.zeros(N, N)
+Z = sm.zeros(N, N)
 
 k = 0;
 for i in xrange(0, N, 1):
     for j in xrange(i, N, 1):
         Iks[i, j] = x[k]
         Iks[j, i] = x[k]
+        Z[i, j] = z[k]
+        Z[j, i] = z[k]
         k += 1
 
 lmi_list = []
 for field in fields:
 	if (field['Name'] == 0):
-		mu = -field["Mu"]
-		lmi_matrix = A * Iks +Iks * A.transpose() + 2 * mu * Iks;
+		mu = field["Mu"]
+		lmi_matrix = A * Iks + Iks * A.transpose() + 2 * mu * Iks + B * Z + Z.transpose() * B.transpose();
 		lmi = LMI_ND(lmi_matrix)
 		lmi_list.append(lmi)
 	elif (field['Name'] == 1):
 		r = field["R"]	
 		q = field["Q"]
-		lmi_matrix = GetBlockMatrix(-r * Iks, q * Iks + A * Iks, q * Iks + Iks * A.transpose(), -r * Iks, 2 * N)
+		lmi_matrix = GetBlockMatrix(-r * Iks, q * Iks + A * Iks + B * Z, q * Iks + Iks * A.transpose() + Z.transpose() * B.transpose(), -r * Iks, 2 * N)
 		lmi = LMI_ND(lmi_matrix)
 		lmi_list.append(lmi)
 	elif (field['Name'] == 2):
 		nu = field["Nu"]
-		lmi_matrix = GetBlockMatrix(-2 * nu * Iks, A * Iks - Iks * A.transpose(), -A * Iks + Iks * A.transpose() , -2 * nu * Iks, 2 * N);
+		lmi_matrix = GetBlockMatrix(-2 * nu * Iks, A * Iks - Iks * A.transpose() + B * Z - Z.transpose() * B.transpose(), -A * Iks + Iks * A.transpose() - B * Z + Z.transpose() * B.transpose(), -2 * nu * Iks, 2 * N);
 		lmi = LMI_ND(lmi_matrix)
 		lmi_list.append(lmi)
 	elif (field['Name'] == 3):
 		fi = 3.14 * field["Angle"] / 360.0
 		lmi_matrix = GetBlockMatrix(
-			(A * Iks + Iks * A.transpose()) * sm.sin(fi), (A * Iks - Iks * A.transpose()) * sm.cos(fi),
-			(-A * Iks + Iks * A.transpose()) * sm.cos(fi), (A * Iks + Iks * A.transpose()) * sm.sin(fi), 2 * N)		
+			(A * Iks + Iks * A.transpose() + B * Z + Z.transpose() * B.transpose()) * sm.sin(fi), (A * Iks - Iks * A.transpose() + B * Z - Z.transpose() * B.transpose()) * sm.cos(fi),
+			(-A * Iks + Iks * A.transpose() - B * Z + Z.transpose() * B.transpose()) * sm.cos(fi), (A * Iks + Iks * A.transpose() + B * Z + Z.transpose() * B.transpose()) * sm.sin(fi), 2 * N)		
 		lmi = LMI_ND(lmi_matrix)
 		lmi_list.append(lmi)
 	elif (field['Name'] == 4):
 		mu1 = -field["Mu1"]
 		mu2 = field["Mu2"]
 		lmi_matrix = GetBlockMatrix(
-			A * Iks + Iks * A.transpose() + 2 * mu1 * Iks, sm.zeros(N, N), 
-			sm.zeros(N, N), -A * Iks - Iks * A.transpose() - 2 * mu2 * Iks, 2 * N)
+			A * Iks + Iks * A.transpose() + 2 * mu1 * Iks + B * Z + Z.transpose() * B.transpose(), sm.zeros(N, N), 
+			sm.zeros(N, N), -A * Iks - Iks * A.transpose() - 2 * mu2 * Iks - B * Z - Z.transpose() * B.transpose(), 2 * N)
 		lmi = LMI_ND(lmi_matrix)
 		lmi_list.append(lmi)
 
-min_obj = x[0] + x[1]
+lmi_matrix = Iks;
+lmi = LMI_PD(lmi_matrix)
+lmi_list.append(lmi)
+
+min_obj = z[0] - z[1] + z[2]
 solvers.options['show_progress'] = False
-c, Gs, hs = to_cvxopt(min_obj, lmi_list, x)
+c, Gs, hs = to_cvxopt(min_obj, lmi_list, x + z )
 
 sol = solvers.sdp(c, Gs = Gs, hs = hs)
 
@@ -97,8 +108,12 @@ for i in xrange(0, N, 1):
         Iks[j, i] = '%.2f' % float(sol['x'][k])
         k += 1
 
-print(np.matrix(Iks.tolist()))
-if sum(sol['x']) > 0.001:
-	print('True')
-else:	
-	print('False')
+k = 0
+for i in xrange(0, N, 1):
+    for j in xrange(i, N, 1):
+        Z[i, j] = '%.2f' % float(sol['x'][k + s])
+        Z[j, i] = '%.2f' % float(sol['x'][k + s])
+        k += 1
+        
+Res = np.matrix(Z.tolist()) * inv(np.matrix(Iks.tolist()))
+print(Res)
