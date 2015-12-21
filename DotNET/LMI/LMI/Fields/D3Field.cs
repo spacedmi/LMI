@@ -19,7 +19,7 @@ namespace LMI
                     nu = value;
                 else
                     nu = 0.01f;
-                fixPoint = new PointF(-(float)pictureBoxWidth / 40.0f, nu);
+                fixPoint = new PointF(-(float)pictureBoxWidth * 4.0f / 100.0f, nu);
             }
         }
 
@@ -41,7 +41,7 @@ namespace LMI
         {
             int x = 0;
             int y = pictureBoxHeight / 2 - Convert.ToInt32(Nu * 10);
-            int width = pictureBoxWidth / 2;
+            int width = pictureBoxWidth * 4 / 5;
             int height = 2 * Convert.ToInt32(Nu * 10);
 
             // Draw field
@@ -52,7 +52,7 @@ namespace LMI
             // Draw fixPoint
             SolidBrush fBrush = new SolidBrush(Color.FromArgb(200, 0, 0, 0));
             Rectangle fRect = new Rectangle(
-                pictureBoxWidth / 2 + Convert.ToInt32(fixPoint.X * 10) - pointWidth / 2,
+                pictureBoxWidth * 4 / 5 + Convert.ToInt32(fixPoint.X * 10) - pointWidth / 2,
                 pictureBoxHeight / 2 - Convert.ToInt32(fixPoint.Y * 10) - pointHeight / 2,
                 pointWidth,
                 pointHeight);

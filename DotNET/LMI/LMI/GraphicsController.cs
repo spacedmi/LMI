@@ -105,7 +105,7 @@ namespace LMI
             // Draw axes
             Pen pen = new Pen(Color.FromArgb(255, 0, 0, 0));
             graphics.DrawLine(pen, 0, pictureBoxHeight / 2, pictureBoxWidth, pictureBoxHeight / 2);
-            graphics.DrawLine(pen, pictureBoxWidth / 2, 0, pictureBoxWidth / 2, pictureBoxHeight);
+            graphics.DrawLine(pen, pictureBoxWidth * 4 / 5, 0, pictureBoxWidth * 4 / 5, pictureBoxHeight);
 
             foreach (IField fieldObject in fieldObjects)
             {

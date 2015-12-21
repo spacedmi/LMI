@@ -24,12 +24,12 @@ namespace LMI
                 else
                     angle = 0.01f;
 
-                if (angle > 90.0f)
-                    fixPoint = new PointF(-(float)pictureBoxHeight / 20.0f *
-                    (float)Math.Sqrt(2.0F) * (float)Math.Cos(Math.PI * (Angle / 180.0F) / 2.0F), (float)pictureBoxHeight / 20.0f);
+                if (angle > 64.0f)
+                    fixPoint = new PointF(-(float)pictureBoxHeight / 10.0f *
+                    0.943398f * (float)Math.Cos(Math.PI * (Angle / 180.0F) / 2.0F), (float)pictureBoxHeight / 20.0f);
                 else
-                    fixPoint = new PointF(-(float)pictureBoxHeight / 20.0f, (float)pictureBoxHeight / 20.0f *
-                   (float)Math.Sqrt(2.0F) * (float)Math.Sin(Math.PI * (Angle / 180.0F) / 2.0F));
+                    fixPoint = new PointF(-(float)pictureBoxHeight * 4.0f / 50.0f, (float)pictureBoxHeight / 10.0f *
+                   0.943398f * (float)Math.Sin(Math.PI * (Angle / 180.0F) / 2.0F));
             }
         }
 
@@ -58,28 +58,21 @@ namespace LMI
         {
             SolidBrush brush = new SolidBrush(Color.FromArgb(127, 255, 255, 0));
             FillMode fillMode = FillMode.Winding;
-            PointF point1 = new PointF(pictureBoxWidth / 2, pictureBoxHeight / 2);
-            if (Angle > 90.0)
+            PointF point1 = new PointF(pictureBoxWidth * 4 / 5, pictureBoxHeight / 2);
+            if (Angle > 64.0)
             {
                 PointF point2 = new PointF(0.0F, 0.0F);
                 PointF point3 = new PointF(0.0F, pictureBoxHeight);
-                PointF point4 = new PointF(0.5F * pictureBoxHeight *
-                    (1 - (float)Math.Sqrt(2.0F) * (float)Math.Cos(Math.PI * (Angle / 180.0F) / 2.0F)), 0.0F);
-                PointF point5 = new PointF(0.5F * pictureBoxHeight *
-                    (1 - (float)Math.Sqrt(2.0F) * (float)Math.Cos(Math.PI * (Angle / 180.0F) / 2.0F)), pictureBoxHeight);
+                PointF point4 = new PointF(pictureBoxWidth * 4 / 5 + Convert.ToInt32(fixPoint.X * 10) - pointWidth / 2, 0.0F);
+                PointF point5 = new PointF(pictureBoxWidth * 4 / 5 + Convert.ToInt32(fixPoint.X * 10) - pointWidth / 2, pictureBoxHeight);
                 PointF point6 = new PointF(0.0F, 0.0F);
                 PointF point7 = new PointF(0.0F, pictureBoxHeight);
                 graphics.FillPolygon(brush, new PointF[9] { point1, point2, point4, point1, point3, point5, point1, point6, point7 }, fillMode);
             }
             else
             {
-                var t = Math.PI * (Angle / 180.0F);
-                var g = (float)Math.Sin(Math.PI / 4.0F);
-                var y = (float)Math.Sin(Math.PI * (Angle / 180.0F) / 2.0F);
-                PointF point2 = new PointF(0.0F, 0.5F * (float)pictureBoxHeight * 
-                    (1.0F - (float)Math.Sqrt(2.0F) * (float)Math.Sin(Math.PI * (Angle / 180.0F) / 2.0F)));
-                PointF point3 = new PointF(0.0F, 0.5F * (float)pictureBoxHeight *
-                    (1.0F + (float)Math.Sqrt(2.0F) * (float)Math.Sin(Math.PI * (Angle / 180.0F) / 2.0F)));
+                PointF point2 = new PointF(0.0F, pictureBoxHeight / 2 - Convert.ToInt32(fixPoint.Y * 10) - pointHeight / 2);
+                PointF point3 = new PointF(0.0F, pictureBoxHeight / 2 + Convert.ToInt32(fixPoint.Y * 10) - pointHeight / 2);
                 PointF[] curvePoints = { point1, point2, point3 };
                 graphics.FillPolygon(brush, new PointF[] { point1, point2, point3 }, fillMode);
             }
@@ -87,7 +80,7 @@ namespace LMI
             // Draw fixPoint
             SolidBrush fBrush = new SolidBrush(Color.FromArgb(200, 0, 0, 0));
             Rectangle fRect = new Rectangle(
-                pictureBoxWidth / 2 + Convert.ToInt32(fixPoint.X * 10) - pointWidth / 2,
+                pictureBoxWidth * 4 / 5 + Convert.ToInt32(fixPoint.X * 10) - pointWidth / 2,
                 pictureBoxHeight / 2 - Convert.ToInt32(fixPoint.Y * 10) - pointHeight / 2,
                 pointWidth,
                 pointHeight);

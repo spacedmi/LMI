@@ -54,7 +54,7 @@ namespace LMI
 
         public override void Draw(Graphics graphics)
         {
-            int x = pictureBoxWidth / 2 - Convert.ToInt32(Math.Max(Mu1, Mu2) * 10);
+            int x = pictureBoxWidth * 4 / 5 - Convert.ToInt32(Math.Max(Mu1, Mu2) * 10);
             int y = 0;
             int width = Convert.ToInt32(Math.Abs(Mu1 - Mu2) * 10);
             int height = pictureBoxHeight;
@@ -67,7 +67,7 @@ namespace LMI
             // Draw fixPointMu1
             SolidBrush fBrushMu1 = new SolidBrush(Color.FromArgb(200, 0, 0, 0));
             Rectangle fRectMu1 = new Rectangle(
-                pictureBoxWidth / 2 + Convert.ToInt32(fixPointMu1.X * 10) - pointWidth / 2,
+                pictureBoxWidth * 4 / 5 + Convert.ToInt32(fixPointMu1.X * 10) - pointWidth / 2,
                 pictureBoxHeight / 2 - Convert.ToInt32(fixPointMu1.Y * 10) - pointHeight / 2,
                 pointWidth,
                 pointHeight);
@@ -76,7 +76,7 @@ namespace LMI
             // Draw fixPointMu2
             SolidBrush fBrushMu2 = new SolidBrush(Color.FromArgb(200, 0, 0, 0));
             Rectangle fRectMu2 = new Rectangle(
-                pictureBoxWidth / 2 + Convert.ToInt32(fixPointMu2.X * 10) - pointWidth / 2,
+                pictureBoxWidth * 4 / 5 + Convert.ToInt32(fixPointMu2.X * 10) - pointWidth / 2,
                 pictureBoxHeight / 2 - Convert.ToInt32(fixPointMu2.Y * 10) - pointHeight / 2,
                 pointWidth,
                 pointHeight);
