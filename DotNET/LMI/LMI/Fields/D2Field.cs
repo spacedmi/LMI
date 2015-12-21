@@ -55,7 +55,7 @@ namespace LMI
 
         public override void Draw(Graphics graphics)
         {
-            int x0 = pictureBoxWidth / 2 - Convert.ToInt32(Q * 10) - Convert.ToInt32(R * 10);
+            int x0 = pictureBoxWidth * 4 / 5 - Convert.ToInt32(Q * 10) - Convert.ToInt32(R * 10);
             int y0 = pictureBoxHeight / 2 - Convert.ToInt32(R * 10);
             int d = 2 * Convert.ToInt32(R * 10);
 
@@ -66,7 +66,7 @@ namespace LMI
             // Draw fixPointQ
             SolidBrush fBrushQ = new SolidBrush(Color.FromArgb(200, 0, 0, 0));
             Rectangle fRectQ = new Rectangle(
-                pictureBoxWidth / 2 + Convert.ToInt32(fixPointQ.X * 10) - pointWidth / 2,
+                pictureBoxWidth * 4 / 5 + Convert.ToInt32(fixPointQ.X * 10) - pointWidth / 2,
                 pictureBoxHeight / 2 + Convert.ToInt32(fixPointQ.Y * 10) - pointHeight / 2,
                 pointWidth,
                 pointHeight);
@@ -75,7 +75,7 @@ namespace LMI
             // Draw fixPointR
             SolidBrush fBrushR = new SolidBrush(Color.FromArgb(200, 0, 0, 0));
             Rectangle fRectR = new Rectangle(
-                pictureBoxWidth / 2 + Convert.ToInt32(fixPointR.X * 10) - pointWidth / 2,
+                pictureBoxWidth * 4 / 5 + Convert.ToInt32(fixPointR.X * 10) - pointWidth / 2,
                 pictureBoxHeight / 2 - Convert.ToInt32(fixPointR.Y * 10) - pointHeight / 2,
                 pointWidth,
                 pointHeight);

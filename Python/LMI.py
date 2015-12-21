@@ -7,6 +7,12 @@ from lmi_sdp import to_cvxopt
 import numpy as np
 from numpy.linalg import inv
 
+# # # # #
+N = 2
+A = sm.Matrix([[-1, 0], [0,  -2]])
+B = sm.Matrix([[1, 0], [0,  2]])
+# # # # #
+
 script_dir = os.path.dirname(__file__)
 rel_path = "fields.json"
 abs_file_path = os.path.join(script_dir, rel_path)
@@ -33,10 +39,6 @@ def GetBlockMatrix(A, B, C, D, dim):
 		for j in xrange(0, dim / 2, 1):
 			M[ dim / 2 + i, dim / 2 + j] = D[i, j]
 	return M;
-
-N = 2
-A = sm.Matrix([[-1, 0], [0,  -2]])
-B = sm.Matrix([[1, 0], [0,  2]])
 
 s = 0
 for i in xrange(0, N + 1, 1):
@@ -114,6 +116,6 @@ for i in xrange(0, N, 1):
         Z[i, j] = '%.2f' % float(sol['x'][k + s])
         Z[j, i] = '%.2f' % float(sol['x'][k + s])
         k += 1
-        
+
 Res = np.matrix(Z.tolist()) * inv(np.matrix(Iks.tolist()))
 print(Res)

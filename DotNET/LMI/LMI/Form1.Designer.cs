@@ -38,6 +38,7 @@
             this.solveButton = new System.Windows.Forms.Button();
             this.answerLabel = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -66,10 +67,10 @@
             // 
             this.fieldComboBox.FormattingEnabled = true;
             this.fieldComboBox.Items.AddRange(new object[] {
-            "Левая полуплоскость\t",
+            "Левая полуплоскость",
             "Круг",
             "Горизонтальная полуполоса",
-            "Облась, ограниченная углом\t",
+            "Облась, ограниченная углом",
             "Вертикальная полоса"});
             this.fieldComboBox.Location = new System.Drawing.Point(525, 37);
             this.fieldComboBox.Name = "fieldComboBox";
@@ -127,7 +128,7 @@
             // answerLabel
             // 
             this.answerLabel.AutoSize = true;
-            this.answerLabel.Location = new System.Drawing.Point(528, 197);
+            this.answerLabel.Location = new System.Drawing.Point(531, 220);
             this.answerLabel.Name = "answerLabel";
             this.answerLabel.Size = new System.Drawing.Size(0, 13);
             this.answerLabel.TabIndex = 8;
@@ -142,11 +143,21 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(525, 195);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(72, 13);
+            this.label3.TabIndex = 10;
+            this.label3.Text = "Управление:";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(694, 521);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.answerLabel);
             this.Controls.Add(this.solveButton);
@@ -180,6 +191,7 @@
         private System.Windows.Forms.Button solveButton;
         private System.Windows.Forms.Label answerLabel;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Label label3;
     }
 }
 

@@ -31,7 +31,7 @@ namespace LMI
         {
             graphicsController.currentPictureBoxLocationX = e.X;
             graphicsController.currentPictureBoxLocationY = e.Y;
-            graphicsController.currentLocationX = (float)(e.X - pictureBox1.Width / 2) / 10.0f;
+            graphicsController.currentLocationX = (float)(e.X - pictureBox1.Width * 4 / 5) / 10.0f;
             graphicsController.currentLocationY = (float)(pictureBox1.Height - e.Y - pictureBox1.Height / 2) / 10.0f;
 
             if (isMouseDown)
