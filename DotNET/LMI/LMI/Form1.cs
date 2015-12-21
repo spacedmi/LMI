@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -39,8 +40,8 @@ namespace LMI
                 graphicsController.Draw();
             }
 
-            LocationLabel.Text = 
-                "Current location: (" + 
+            LocationLabel.Text =
+                "Текущая позиция: (" + 
                 graphicsController.currentLocationX.ToString() + 
                 "," +
                 graphicsController.currentLocationY.ToString() + 
@@ -108,11 +109,12 @@ namespace LMI
 
         private void solveButton_Click(object sender, EventArgs e)
         {
-            graphicsController.importData();
+            string pythonPath = System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + @"\..\..\..\..\..\Python\";
+            graphicsController.importData(pythonPath);
 
             ProcessStartInfo start = new ProcessStartInfo();
             start.FileName = @"C:\Python27\python.exe";
-            start.Arguments = @"..\..\..\..\..\Python\LMI.py";
+            start.Arguments = pythonPath + "LMI.py";
             start.UseShellExecute = false;
             start.RedirectStandardOutput = true;
             using (Process process = Process.Start(start))
@@ -120,9 +122,15 @@ namespace LMI
                 using (StreamReader reader = process.StandardOutput)
                 {
                     string result = reader.ReadToEnd();
-                    answerLabel.Text = "Answer: " + result;
+                    answerLabel.Text = result;
                 }
             }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            graphicsController.clear();
+            pictureBox1.Refresh();
         }
     }
 }

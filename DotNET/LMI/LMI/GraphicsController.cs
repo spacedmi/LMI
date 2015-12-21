@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Drawing;
 using Newtonsoft.Json;
+using System.IO;
 
 namespace LMI
 {
@@ -31,9 +32,21 @@ namespace LMI
         public float currentLocationY = 0;
         public Field currentFieldName = Field.D1Field;
 
-        public void importData()
+        public void importData(string path)
         {
-            string json = JsonConvert.SerializeObject(fieldObjects);
+            path += "fields.json";
+            FileInfo fi = new FileInfo(path);
+            string fieldsJson = JsonConvert.SerializeObject(fieldObjects);
+
+            using (StreamWriter outfile = new StreamWriter(fi.Open(FileMode.Truncate)))
+            {
+                outfile.Write(fieldsJson);
+            }
+        }
+
+        public void clear()
+        {
+            fieldObjects.Clear();
         }
 
         public void ProcessMousePosition()
